@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="heart" id="app">
+	<div class="nav-bar">
+	 <h2>{{head}}</h2>
+	</div>
+	<div >
+		<img v-bind:src="img" >
+	
+	<div  class="product"  >
+		<h1 class="item-name">{{product}}</h1>
+		<span v-if="onStock">In Stock!</span>
+		<span v-else="onStock">Out of Stock</span>
+
+		<ul>
+			<li v-for="detail in details">{{detail}}</li>
+		</ul>
+		
+			<div class="color_panel" v-for="colors in description"
+			:key="description.variant_id"
+			:style="{backgroundColor:colors.variant_color}"
+			@mouseover="updatevariant(colors.variant_img)"
+
+			>
+
+			</div>
+
+			<button v-on:click="addToCart" :disabled="!onStock"
+			>Add to cart</button>
+
+
+		<span class="cart"> Cart({{ cart }}) </span>
+		<!--<p :class="{underline:!onStock}" >Out of Stock</p>-->
+	</div>
+
+</div>
+</div>
+</body>
+<script>
+	var pp = new Vue({
+  el: '#app',
+  data :{
+    head:'Welcome to ecommerce site',
+    product:'Socks',
+    img:'image1.jpg',
+    onStock: true,
+    details : [' 100% Cotton','Gender Neutral','Reusable'],
+   
+description : [
+{
+	variant_id : 1,
+	variant_color : 'blue',
+	variant_img : 'image1.jpg'
+},
+{
+	variant_id : 2,
+	variant_color : 'green',
+	variant_img : 'image2.jpg'
+}
+],
+cart : 0
+},
+methods : {
+
+	addToCart(){
+this.cart += 1;
+	},
+	updatevariant(variant_img)
+	{
+		this.img=variant_img
+	}
+}
+});
+</script>
+</html>
